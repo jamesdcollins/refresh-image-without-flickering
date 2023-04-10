@@ -7,13 +7,36 @@ html
             margin: 0
         }
     meta(charset="utf-8")
-    link(rel="shortcut icon", href="/favicon.ico")
+
     meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
     meta(name="theme-color", content="#000000")
-    title #{title}
+    title Application
   body
     div
-        img(id="picture", src=name, alt='background', style='margin-left:'+start_x+'px;margin-top:'+start_y+'px;width:'+width+'px;height:'+height+'px;')
-    div(id="rect", style='border:3px solid red; position:fixed; left:'+rect_start_x+'px;top:'+rect_start_y+'px;width:'+rect_width+'px;height:'+rect_height+'px;')
-    script
-      include app.js
+        img(id="image")
+        div(id="rect", style='border:3px solid red; position:fixed;')
+    
+    script(type="module").
+        import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
+        const socket = io.connect('#{SOCKET_URL}',{
+            withCredentials: true,
+        });
+
+        socket.on('message', (data) => {
+            var img=new Image();
+            var newSrc = data.IMAGE_NAME + '?' + Math.random();
+            img.src = newSrc;
+            setTimeout(() => {
+                var image = document.getElementById("image");
+                image.src = newSrc;
+                image.style.marginLeft = data.IMAGE_X1+"px";
+                image.style.marginTop = data.IMAGE_Y1+"px";
+                image.style.width = data.IMAGE_WIDTH+"px";
+                image.style.height = data.IMAGE_HEIGHT+"px";
+            }, 500);
+            var rect = document.getElementById('rect');
+            rect.style.left = data.RECT_X1+"px";
+            rect.style.top = data.RECT_Y1+"px";
+            rect.style.width = data.RECT_WIDTH+"px";
+            rect.style.height = data.RECT_HEIGHT+"px";
+        });

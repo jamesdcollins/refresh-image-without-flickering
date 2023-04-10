@@ -1,0 +1,16 @@
+{
+    "SERVER_URL": "localhost",
+    "SERVER_PORT": 3000,
+    "SOCKET_PORT": 4000,
+
+    "IMAGE_NAME": "2.jpg",
+    "IMAGE_X1": 20,
+    "IMAGE_Y1": 38,
+    "IMAGE_X2": 780,
+    "IAMGE_Y2": 670,
+
+    "RECT_X1": 490,
+    "RECT_Y1": 178,
+    "RECT_X2": 880,
+    "RECT_Y2": 320
+}
