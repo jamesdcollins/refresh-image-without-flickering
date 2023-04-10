@@ -1,0 +1,19 @@
+block variables
+doctype html
+html
+  head
+    style(type="text/css").
+        body {
+            margin: 0
+        }
+    meta(charset="utf-8")
+    link(rel="shortcut icon", href="/favicon.ico")
+    meta(name="viewport", content="width=device-width, initial-scale=1, shrink-to-fit=no")
+    meta(name="theme-color", content="#000000")
+    title #{title}
+  body
+    div
+        img(id="picture", src=name, alt='background', style='margin-left:'+start_x+'px;margin-top:'+start_y+'px;width:'+width+'px;height:'+height+'px;')
+    div(id="rect", style='border:3px solid red; position:fixed; left:'+rect_start_x+'px;top:'+rect_start_y+'px;width:'+rect_width+'px;height:'+rect_height+'px;')
+    script
+      include app.js
