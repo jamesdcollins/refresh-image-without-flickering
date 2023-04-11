@@ -13,8 +13,10 @@ html
     title Application
   body
     div
-        img(id="image")
-        div(id="rect", style='border:3px solid red; position:fixed;')
+        img(id="image0", style='display: none;')
+        img(id="image1", style='display: none;')
+        img(id="image2", style='display: none;')
+        div(id="rect", style='border:3px solid red; position:absolute;')
     
     script(type="module").
         import { io } from "https://cdn.socket.io/4.4.1/socket.io.esm.min.js";
@@ -23,17 +25,45 @@ html
         });
 
         socket.on('message', (data) => {
-            var img=new Image();
-            var newSrc = data.IMAGE_NAME + '?' + Math.random();
-            img.src = newSrc;
-            setTimeout(() => {
-                var image = document.getElementById("image");
-                image.src = newSrc;
-                image.style.marginLeft = data.IMAGE_X1+"px";
-                image.style.marginTop = data.IMAGE_Y1+"px";
-                image.style.width = data.IMAGE_WIDTH+"px";
-                image.style.height = data.IMAGE_HEIGHT+"px";
-            }, 500);
+            var img = [], newSrc = [];
+            if (data.IMAGE_NAMES.length > 0) {
+                img[0] = new Image();
+                newSrc[0] = data.IMAGE_NAMES[0] + '?' + Math.random();
+                img[0].src = newSrc[0];
+                setTimeout(() => {
+                    var image = document.getElementById('image0');
+                    image.src = newSrc[0];
+                    image.style.width = data.IMAGE_WIDTH+"px";
+                    image.style.height = data.IMAGE_HEIGHT+"px";
+                    image.style.display = 'block';
+                }, 500);
+            }
+            if (data.IMAGE_NAMES.length > 1) {
+                img[1] = new Image();
+                newSrc[1] = data.IMAGE_NAMES[1] + '?' + Math.random();
+                img[1].src = newSrc[1];
+                setTimeout(() => {
+                    var image = document.getElementById('image1');
+                    image.src = newSrc[1];
+                    image.style.width = data.IMAGE_WIDTH+"px";
+                    image.style.height = data.IMAGE_HEIGHT+"px";
+                    image.style.marginTop = "10px";
+                    image.style.display = 'block';
+                }, 500);
+            }
+            if (data.IMAGE_NAMES.length > 2) {
+                img[2] = new Image();
+                newSrc[2] = data.IMAGE_NAMES[2] + '?' + Math.random();
+                img[2].src = newSrc[2];
+                setTimeout(() => {
+                    var image = document.getElementById('image2');
+                    image.src = newSrc[2];
+                    image.style.width = data.IMAGE_WIDTH+"px";
+                    image.style.height = data.IMAGE_HEIGHT+"px";
+                    image.style.marginTop = "10px";
+                    image.style.display = 'block';
+                }, 500);
+            }
             var rect = document.getElementById('rect');
             rect.style.left = data.RECT_X1+"px";
             rect.style.top = data.RECT_Y1+"px";
